@@ -1,0 +1,62 @@
+{% extends "posts/base.html" %}
+
+{% load static %}
+
+ {% block header %}
+
+<link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css">
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="login-page">
+  {% if form.errors %}
+  <p> The Username / Password you entered are wrong.
+  <br>Please try again or <a href="/register">Register now.</a></p>
+  {% endif %}
+
+        {% if next %}
+        {% if not user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+        {% else %}
+
+        <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+
+             <div class="col-xs-12">
+            <div class="form">
+                 <h2> Billboard </h2>
+                 <form class="login-form"  role= 'form' action= '/login/index' method='POST'>
+
+                {% csrf_token %}
+
+                <table class="field">
+                 <tr>
+                          <td>{{ form.username.label_tag }}</td>
+                           <td>{{ form.username }}</td>
+
+                           </tr>
+                          <tr>
+                          <td>{{ form.password.label_tag }}</td>
+                         <td>{{ form.password }}</td>
+                        </tr>
+                        </table>
+                        <input type="submit" value="SUBMIT" />
+                        <input type="hidden" name="next" value="{{ next }}" />
+                         </form>
+
+            <div class="social-logos">
+                <a href="/oauth/login/facebook/"><img src="/static/images/facebook.png" title="Facebook" alt="Facebook"></a><br>
+                <a href="/oauth/login/github/"><img src="/static/images/github.png" title="GitHub" alt="GitHub"></a><br>
+                <a href="/oauth/login/twitter/"><img src="/static/images/twitter.png" title="Twitter" alt="Twitter"></a><br>
+                </div>
+                <p class="message">Not registered? <a href="/register">Create an account</a></p>
+        </div>
+        </div>
+        </div>
+        </div>
+
+{% endblock %}

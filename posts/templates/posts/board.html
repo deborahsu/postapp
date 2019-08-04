@@ -1,0 +1,86 @@
+{% extends "posts/base.html" %}
+{% load static %}
+{% block header %}
+<link href="{% static 'css/board.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <div id="hellouser">Hello {{username}}!</div>
+    <a class="btn" id="logoutbtn" href={% url 'logout' %}>Logout</a>
+</div>
+
+    <div class="board">
+    <h1 id="maintitle"> Billboard </h1>
+
+
+    <div class ="post_div center-block">
+    <form action="/add/" method="POST">
+    {% csrf_token %}
+        <legend class="pubdate">02/08/2019</legend>
+        <a class="delete_post" id="38"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <input type="text" name="title" placeholder="Title"/><br>
+        <input type="text" name="message" placeholder="Enter your message here"/><br>
+        <input type="text" name="author" placeholder="Author"/><br>
+        <input type="submit" value="Submit" />
+
+    </form>
+          <button class="showcomments btn " id="showcomment_38">Show Comments</button>
+                    <button class="addcomment btn" id="add_38">Add Comment</button>
+                    <div class="comments" id="commentbox_38">
+
+
+
+
+    </div>
+        </div>
+
+        {% if postlist %}
+
+            {% for post in postlist %}
+            <div class="postlist">
+            <fieldset class="post_div center-block">
+                <a class="delete_post" id="27"><i class="fa fa-trash" aria-hidden="true"></i></a>
+            <legend class="pubdate">{{post.post_pub_date}}</legend>
+                <h3 class="title">{{post.post_title}}</h3><br>
+                <div class="message">{{post.post_desc }}</div>
+                <h5 class="author">Post written by {{post.post_author}} </h5>
+            </fieldset>
+	<div class="clearfix"></div>
+    </div>
+            {% endfor %}
+
+
+            {% else %}
+             <p>No posts are available.</p>
+            {% endif %}
+
+
+     <div class="newpost">
+        <fieldset class="center-block" id="newpostdiv" style="display: none;">
+            <legend><p class="pubdate" id="newpostdate">1/08/2019</p></legend>
+            <input type="text" class="form-control" id="newtitle" placeholder="Title..">
+            <textarea class="form-control" rows="5" id="newtext" placeholder="Your message here.."></textarea>
+            <input type="text" class="form-control" id="newauthor" value="Deborah" placeholder="Your name">
+            <br><br>
+        </fieldset>
+
+<!--        <div class="center-block bordernewmsg" id="confirmbox" style="display: none;">-->
+<!--            <i class="fa fa-times" id="closebtn" aria-hidden="true"></i>-->
+<!--            <i class="fa fa-check" id="confirmbtn" aria-hidden="true"></i>-->
+<!--        </div>-->
+
+        <div class="center-block bordernewmsg" id="newpostbtn">
+            <i class="fa fa-plus pulse" id="plusbtn" aria-hidden="true"></i>
+        </div>
+
+    </div>
+    </div>
+    </div>
+
+{% endblock %}
+
+</body>
+</html>
+

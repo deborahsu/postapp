@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Posts App</title>
+</head>
+<body>
+<div class="container">
+    <H1 id="maintitle">My posts</H1>
+    <div id="row">
+        {% if posts %}
+            {% for post in posts %}
+                <fieldset class="post_div center-block">
+                    <span class="pubdate">{{ post.post_pub_date|date:"d/m/Y" }}</span>
+                    <h4 class="posttitle">{{ post.post_title }}</h4>
+                    <p class="postmsg">{{ post.post_desc }}</p>
+                    <p class="postauthor">{{ post.post_author }}</p>
+                </fieldset>
+            {% endfor %}
+        {% else %}
+            <div class="center-block" id="nomsgbox">
+                <p id="nomsg">No messages...<br>Click the '+' button to add a new message</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
